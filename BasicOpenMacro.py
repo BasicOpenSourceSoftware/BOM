@@ -18,7 +18,6 @@ root = Tk()
 #----Create the varibles----#
 
 typetoscreen = win32com.client.Dispatch("WScript.Shell")
-
 ctrlpressed=0
 altpressed=0
 keyindict = ''
@@ -43,6 +42,8 @@ winheiwid=str(winwidth)+'x'+str(winheight)
 textsetvar=StringVar()
 bindsetvar=StringVar()
 textboxtextofdict=''
+
+bindtextdisplay = scrolledtext.ScrolledText(root, wrap="none")
 
 #----Get Keybinds and Text from file----#
 
@@ -201,59 +202,64 @@ def helppopup():
     messagebox.showinfo('Help','For documentation please vist: https://github.com/BasicOpenSourceSoftware/BOM')
 
 #----Window and widget making part----#
+def windowmaker():
+    global bindtextdisplay
+    
+    root.wm_title("BasicOpenMacro")
+    root.resizable(0, 0)
+    root.geometry(winheiwid)
+    #root.pack_propagate(False)
+    
+    #bindtextdisplay = scrolledtext.ScrolledText(root, wrap="none")
+    bindtextdisplay['font'] = ('calibre', '12')
+    bindtextdisplay.pack(expand=True, fill='both')
+    bindtextdisplay.place(x=120,y=5,width=655,height=355, in_=root)
+    bindtextdisplay.insert(1.0,"testing")
+    bindtextdisplay.config(state=NORMAL)
+    #bindtextdisplay.config(state='disabled')
 
-root.wm_title("BasicOpenMacro")
-root.resizable(0, 0)
-root.geometry(winheiwid)
-#root.pack_propagate(False)
 
-bindtextdisplay = scrolledtext.ScrolledText(root, wrap="none")
-bindtextdisplay['font'] = ('calibre', '12')
-bindtextdisplay.pack(expand=True, fill='both')
-bindtextdisplay.place(x=120,y=5,width=655,height=355, in_=root)
-bindtextdisplay.insert(1.0,"testing")
-bindtextdisplay.config(state=NORMAL)
-#bindtextdisplay.config(state='disabled')
+    bindset = Entry(root,textvariable = bindsetvar)
+    bindset['font'] = ('calibre', '12')
+    bindset.pack(expand=True, fill='both')
+    bindset.place(x=120,y=370, width=20,height=25, in_=root)
 
-
-bindset = Entry(root,textvariable = bindsetvar)
-bindset['font'] = ('calibre', '12')
-bindset.pack(expand=True, fill='both')
-bindset.place(x=120,y=370, width=20,height=25, in_=root)
-
-textset = Entry(root,textvariable = textsetvar)
-textset['font'] = ('calibre', '12')
-textset.pack(expand=True, fill='both')
-textset.place(x=155,y=370,width=620,height=25, in_=root)
-
-startbutton=Button(root,text = 'Start', command=threadmaker, font = ('calibre',18))
-startbutton.place(x=5,y=5,width=100,height=100, in_=root)
-
-savebutton=Button(root,text = 'Save', command=savetime, font = ('calibre',18))
-savebutton.place(x=5,y=110,width=100,height=100, in_=root)
-
-delaybutton=Button(root, text='Set Delay', command=setdelay, font = ('calibre',12))
-delaybutton.place(x=5,y=215,width=100,height=25, in_=root)
-
-delayseter = Entry(root)#,textvariable = typedelayentry
-delayseter['font'] = ('calibre', '12')
-delayseter.pack(expand=True, fill='both')
-delayseter.place(x=5,y=240,width=100,height=25, in_=root)
-
-helpbutton=Button(root,text = '?', command=helppopup, font = ('calibre',18))
-helpbutton.place(x=5,y=270,width=100,height=65, in_=root)
-
-removebindbutton=Button(root,text = 'Remove Bind', command=deletekeybind, font = ('calibre',12))
-removebindbutton.place(x=5,y=340,width=100,height=25, in_=root)
-
-addbutton=Button(root,text = 'Add Bind', command=addingbindsandtext, font = ('calibre',12))
-addbutton.place(x=5,y=370,width=100,height=25, in_=root)
-
+    textset = Entry(root,textvariable = textsetvar)
+    textset['font'] = ('calibre', '12')
+    textset.pack(expand=True, fill='both')
+    textset.place(x=155,y=370,width=620,height=25, in_=root)
+    
+    startbutton=Button(root,text = 'Start', command=threadmaker, font = ('calibre',18))
+    startbutton.place(x=5,y=5,width=100,height=100, in_=root)
+    
+    savebutton=Button(root,text = 'Save', command=savetime, font = ('calibre',18))
+    savebutton.place(x=5,y=110,width=100,height=100, in_=root)
+    
+    delaybutton=Button(root, text='Set Delay', command=setdelay, font = ('calibre',12))
+    delaybutton.place(x=5,y=215,width=100,height=25, in_=root)
+    
+    delayseter = Entry(root)#,textvariable = typedelayentry
+    delayseter['font'] = ('calibre', '12')
+    delayseter.pack(expand=True, fill='both')
+    delayseter.place(x=5,y=240,width=100,height=25, in_=root)
+    
+    helpbutton=Button(root,text = '?', command=helppopup, font = ('calibre',18))
+    helpbutton.place(x=5,y=270,width=100,height=65, in_=root)
+    
+    removebindbutton=Button(root,text = 'Remove Bind', command=deletekeybind, font = ('calibre',12))
+    removebindbutton.place(x=5,y=340,width=100,height=25, in_=root)
+    
+    addbutton=Button(root,text = 'Add Bind', command=addingbindsandtext, font = ('calibre',12))
+    addbutton.place(x=5,y=370,width=100,height=25, in_=root)
+    root.mainloop()
 #textset.see('end')
-#root.mainloop()
-
+#def otherthread():
+    #root.mainloop()
+#x=threading.Thread(target=otherthread())
+#x.start()
 #----Start the program here----#
 
 readfiles()
 addingbindsandtext()
 root.protocol("WM_DELETE_WINDOW", onclosing)
+windowmaker()
