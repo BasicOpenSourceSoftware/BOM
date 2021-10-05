@@ -5,6 +5,8 @@ The ZIP file is a compiled version using py2exe. There is no insaller but you wi
 
 Please note that to make a key bind you have to use a capital letter. The software only allows you to use ctrl + alt + (the key bind you set) I will probably not add the ability to change that. If you have any qyestions please email me at BasicOpenSourceSoftware@gmail.com.
 
+The default delay is 0.3
+
 There is no copy right on this project, although I would appriciate if anyone who uses the code from my projects give some credit or a mention.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN OR WITH THE SOFTWARE OR CODE.
