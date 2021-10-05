@@ -43,6 +43,7 @@ textsetvar=StringVar()
 bindsetvar=StringVar()
 textboxtextofdict=''
 
+delayseter = Entry(root)
 bindtextdisplay = scrolledtext.ScrolledText(root, wrap="none")
 
 #----Get Keybinds and Text from file----#
@@ -237,8 +238,7 @@ def windowmaker():
     
     delaybutton=Button(root, text='Set Delay', command=setdelay, font = ('calibre',12))
     delaybutton.place(x=5,y=215,width=100,height=25, in_=root)
-    
-    delayseter = Entry(root)#,textvariable = typedelayentry
+
     delayseter['font'] = ('calibre', '12')
     delayseter.pack(expand=True, fill='both')
     delayseter.place(x=5,y=240,width=100,height=25, in_=root)
