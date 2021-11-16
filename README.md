@@ -3,7 +3,7 @@ BOM stands for BasicOpenMacro as the name suggests BOM is a basic opensource mac
 
 The ZIP file is a compiled version using py2exe. There is no insaller but you will want to unZIP the file then use the exe to launch the application. You can also make a short cut it does not matter where you save the folder.
 
-Please note that to make a key bind you have to use a capital letter. The software only allows you to use ctrl + alt + (the key bind you set) I will probably not add the ability to change that. If you have any qyestions please email me at BasicOpenSourceSoftware@gmail.com.
+Please note that to make a key bind you have to use a capital letter. The software only allows you to use ctrl + alt + (the key bind you set) I will probably not add the ability to change that. If you have any questions please email me at BasicOpenSourceSoftware@gmail.com.
 
 The default delay is 0.3
 
