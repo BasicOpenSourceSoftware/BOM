@@ -34,6 +34,7 @@ newbind = ''
 newtext = ''
 typedelayentry=StringVar()
 typedelayentry2=0.3
+showhideoption = True
 
 #Window vars#
 winwidth=800
@@ -143,18 +144,38 @@ def onclosing():
     savereload=True
     root.destroy()
     raise SystemExit
-    
+#----Show/Hide keybinds----#
+
+def showhide():
+    global showhideoption
+    if showhideoption == True:
+        showhideoption = False
+    elif showhideoption == False:
+        showhideoption = True
+    else:
+        print('show/hide feature is not working')
+    displaykeybindstotextbox()
 
 #----Add/remove to directory/keybinds----#
 
 def putthekeystogether(ke,va):
     global textboxtextofdict
     global xa
-    if xa==0:
+    global showhideoption
+    if xa==0 and showhideoption == False:
         textboxtextofdict=textboxtextofdict+ke+'-->'+va
         xa=1
-    else:
+        print('0')
+    elif xa == 1 and showhideoption == False:
         textboxtextofdict=textboxtextofdict+'\n'+ke+'-->'+va
+        print('1')
+    if xa==0 and showhideoption == True:
+        textboxtextofdict=textboxtextofdict+ke+'-->'+'************'
+        xa=1
+        print('3')
+    elif xa == 1 and showhideoption == True:
+        textboxtextofdict=textboxtextofdict+'\n'+ke+'-->'+'************'
+        print('4')
 
 def displaykeybindstotextbox():
     global textboxtextofdict
@@ -164,6 +185,7 @@ def displaykeybindstotextbox():
         putthekeystogether(ke,va)
     bindtextdisplay.delete(1.0,END)
     bindtextdisplay.insert(1.0,textboxtextofdict)
+    print(textboxtextofdict)
     textboxtextofdict=''
     xa=0
     bindtextdisplay.config(state='disabled')
@@ -209,16 +231,12 @@ def windowmaker():
     root.wm_title("BasicOpenMacro")
     root.resizable(0, 0)
     root.geometry(winheiwid)
-    #root.pack_propagate(False)
     
-    #bindtextdisplay = scrolledtext.ScrolledText(root, wrap="none")
     bindtextdisplay['font'] = ('calibre', '12')
     bindtextdisplay.pack(expand=True, fill='both')
     bindtextdisplay.place(x=120,y=5,width=655,height=355, in_=root)
     bindtextdisplay.insert(1.0,"testing")
     bindtextdisplay.config(state=NORMAL)
-    #bindtextdisplay.config(state='disabled')
-
 
     bindset = Entry(root,textvariable = bindsetvar)
     bindset['font'] = ('calibre', '12')
@@ -230,8 +248,8 @@ def windowmaker():
     textset.pack(expand=True, fill='both')
     textset.place(x=155,y=370,width=620,height=25, in_=root)
     
-    startbutton=Button(root,text = 'Start', command=threadmaker, font = ('calibre',18))
-    startbutton.place(x=5,y=5,width=100,height=100, in_=root)
+    hidebutton=Button(root,text = 'Show/Hide', command=showhide, font = ('calibre',16))
+    hidebutton.place(x=5,y=5,width=100,height=100, in_=root)
     
     savebutton=Button(root,text = 'Save', command=savetime, font = ('calibre',18))
     savebutton.place(x=5,y=110,width=100,height=100, in_=root)
@@ -252,14 +270,12 @@ def windowmaker():
     addbutton=Button(root,text = 'Add Bind', command=addingbindsandtext, font = ('calibre',12))
     addbutton.place(x=5,y=370,width=100,height=25, in_=root)
     root.mainloop()
-#textset.see('end')
-#def otherthread():
-    #root.mainloop()
-#x=threading.Thread(target=otherthread())
-#x.start()
+
 #----Start the program here----#
 
 readfiles()
 addingbindsandtext()
 root.protocol("WM_DELETE_WINDOW", onclosing)
+startherenow=threading.Thread(target=threadmaker)
+startherenow.start()
 windowmaker()
